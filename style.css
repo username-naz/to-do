@@ -1,0 +1,102 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.base-parent{
+    height: 100vh;
+    overflow:hidden;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.backdrop{
+   height: 20vh;
+   background-color: blueviolet;
+}
+
+.list-container{
+    position: fixed;
+    background-color: blueviolet;
+    color:rgb(241, 241, 241);
+    font-size: 1.5rem;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left:50%;
+    height: 80%;
+    width: 80%;
+    border-radius: 2vh;
+    border: 5px solid #3a3939a2;
+    padding: 2%;
+    overflow: hidden;
+}
+
+.list-container .heading{
+    height: 15%;
+    font-size: 2.5rem;
+    font-weight: 800;
+    display: block;
+}
+
+
+.list-box{
+    display: block;
+    height: 80%;
+    max-height: 80%;
+    width: 100%;
+    transform: translate(-50%,-50%);
+    position: relative;
+    border-radius: 2vh;
+    top: 40%;
+    left: 50%;
+    background-color: white;
+    color:rgb(75, 75, 75);
+    overflow: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.list-box::-webkit-scrollbar {
+    display: none;
+  }
+
+.list-item{
+    height: 20%;
+}
+
+.create-item{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 2px 2px #3a3939a2;
+    transform: translate(-50%,-50%);
+    position: fixed;
+    right:10%;
+    top: 80%;
+    cursor: pointer;
+}
+
+.create-item:hover{
+    background-color: #cccccc;
+    transition: 0.2s;
+}
+
+.create-item img{
+    width: 40px;
+    height: 40px;
+}
+
+.create-item:hover img{
+    width: 45px;
+    height: 45px;
+    transition: 0.2s;
+}
+
+@media (orientation:portrait){
+    .create-item{
+        right:5%;
+        top:85%;
+    }
+    
+}
