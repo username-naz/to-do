@@ -32,6 +32,7 @@
     overflow: hidden;
 }
 
+
 .list-container .heading{
     height: 15%;
     font-size: 2.5rem;
@@ -39,6 +40,11 @@
     display: block;
 }
 
+@media (orientation:portrait){
+    .list-container .heading{
+        font-size: 2rem;
+    }
+}
 
 .list-box{
     display: block;
@@ -62,8 +68,55 @@
   }
 
 .list-item{
-    height: 20%;
+    padding: 2%;
+    position: relative;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    border-bottom: 1px solid #cccccc;
 }
+
+.list-item:hover{
+    background-color: #cccccc;
+    transition: 0.2s;
+}
+
+.list-item:focus{
+    height: 40vh;
+}
+
+.list-item .subject{
+    color: #383838;
+    font-weight: 400;
+}
+
+.list-item .description{
+    padding: 1%;
+    display: inline-block;
+    font-size: 1rem;
+    text-overflow: ellipsis;
+    width: 70%;
+}
+
+.edit-button, .remove-button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 10px;
+    float: right;
+    display: none;
+}
+
+.edit-button img, .remove-button img{
+    width: 20px;
+    height: 20px;
+}
+
+.list-item:hover .edit-button, .list-item:hover .remove-button{
+    display: inline-block;
+    transition: 0.2s;
+}
+
 
 .create-item{
     width: 70px;
@@ -73,7 +126,7 @@
     transform: translate(-50%,-50%);
     position: fixed;
     right:10%;
-    top: 80%;
+    top: 20%;
     cursor: pointer;
 }
 
