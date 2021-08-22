@@ -1,29 +1,42 @@
 //initialisation
-window.onload = ()=>loadItems();
+const firstTime = true;
+window.onload = ()=>{
+    if(firstTime===true)
+        createListItem({
+            subject: 'Welcome new user!',
+            description: `This is your to-do list handler.</br>
+            Here's how to use it: </br>
+            1. To add a new list click on the circular button on your screen.</br>
+            2. To edit or remove an list, move over it with your mouse or click on it if you are on your phone.</br>
+            That's about it! Have fun!`
+        });
+    else
+        loadItems();
+};
 
 
 //tempStorage
 let items = [
-    {
-        id:0,
-        subject:"hi",
-        description:"hi guys"
-    },
-    {   
-        id:1,
-        subject:"leto",
-        description:"leohjs guys"
-    },
-    {   id:2,
-        subject:"suii",
-        description:"seuihi guys"
-    },   
-    {   id:3,
-        subject:"heya",
-        description:"heya guys"
-    },
+    // {
+    //     id:0,
+    //     subject:"hi",
+    //     description:"hi guys"
+    // },
+    // {   
+    //     id:1,
+    //     subject:"leto",
+    //     description:"leohjs guys"
+    // },
+    // {   id:2,
+    //     subject:"suii",
+    //     description:"seuihi guys"
+    // },   
+    // {   id:3,
+    //     subject:"heya",
+    //     description:"heya guys"
+    // },
 
-]
+];
 
 const getNewId = ()=>{
     let newId = 0;
@@ -31,7 +44,7 @@ const getNewId = ()=>{
         newId = Math.max(newId, item.id + 1);
     })
     return newId;
-}
+};
 
 //List Items
 document.querySelector('.create-item')
@@ -45,7 +58,11 @@ const loadItems = () =>{
     listBox.innerHTML = "";
     items.forEach((item)=>{
         createListItem(item);
-    })
+    });
+
+    document.querySelector('.empty-list-message')
+        .style.display = items.length===0?'block':'none';
+        
 }
 
 const createListItem = (item)=>{

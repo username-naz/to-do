@@ -39,7 +39,7 @@ img{
 
 .list-container .heading{
     height: 15%;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
     display: block;
 }
@@ -73,6 +73,7 @@ img{
 
 .list-item{
     padding: 2%;
+    min-height: 25%;
     position: relative;
     background-color: #f5f5f5;
     overflow: hidden;
@@ -90,13 +91,13 @@ img{
 
 .list-item .subject{
     color: #383838;
-    font-weight: 400;
+    font-size: 2rem;
 }
 
 .list-item .description{
-    padding: 2%;
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-top: 1%;
     overflow-wrap: break-word;
     width: 70%;
 }
@@ -157,8 +158,8 @@ img{
 }
 
 .create-item:hover img{
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     transition: 0.2s;
 }
 
@@ -176,7 +177,7 @@ img{
     left:0;
     height: 100vh;
     width:100vw;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color:#00000080;
     z-index: 1;
     display: none;
 }
@@ -224,7 +225,38 @@ img{
     cursor: pointer;
 }
 
-.create-item-form form .add-item{
+.create-item-form .add-item{
     background-color: blueviolet;
     color: #f5f5f5;
+}
+
+.create-item-form .add-item:hover{
+    background-color: rgb(109, 29, 184);
+    transition: 0.2s;
+}
+
+.create-item-form form .cancel:hover{
+    background-color: #cccccc;
+    transition: 0.2s;
+}
+
+
+.empty-list-message{
+    position: fixed;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    max-width: 50%;
+    display: none;
+}
+.empty-list-message img{
+    display: block;
+    margin: auto;
+    height: 100px;
+    width: 100px;
+}
+.empty-list-message h2{
+    margin-top: 5%;
+    display: block;
+    color: #3a3939a2;
 }
