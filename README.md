@@ -1,5 +1,6 @@
 # to-do
 to-do list handler with basic html css and js  
+</br>
 Hosted on: https://username-naz.github.io/to-do/ for now  
 will switch to netlify soon
 </br>
