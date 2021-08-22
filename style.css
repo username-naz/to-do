@@ -4,6 +4,10 @@
     border: 0;
 }
 
+img{
+    pointer-events: none;
+}
+
 .base-parent{
     height: 100vh;
     overflow:hidden;
