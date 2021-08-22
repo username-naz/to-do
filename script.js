@@ -61,7 +61,8 @@ const createListItem = (item)=>{
 
     const description = document.createElement('p');
     description.innerHTML = item.description;
-    description.setAttribute('class', 'description')
+    description.setAttribute('class', 'description');
+    description.style.width = '70%';
     listItem.appendChild(description);
 
     const editButton = document.createElement('button');

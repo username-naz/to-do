@@ -97,10 +97,9 @@ img{
     padding: 2%;
     display: inline-block;
     font-size: 1rem;
-    text-overflow: ellipsis;
+    overflow-wrap: break-word;
     width: 70%;
 }
-
 
 
 .edit-button, .remove-button{
