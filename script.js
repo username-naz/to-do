@@ -11,12 +11,14 @@ window.onload = ()=>{
     if(!visited){
         createListItem({
             subject: 'Welcome new user!',
-            description: `This is your to-do list handler.</br>
+            description: `This is your to-do list handler.</br></br>
             Here's how to use it: </br>
-            1. To add a new list click on the circular button on your screen.</br>
-            2. To edit or remove an list, move over it with your mouse or click on it if you are on your phone.</br>
-            That's about it! Have fun!`
-        });
+            1. To add a new to-do, click on the circular button on your screen.</br>
+            2. To edit or remove a to-do, move over it with your mouse and click on the required button.</br>
+            3. You can mark a to-do as done with the check-marked button. You can edit it to be active again.
+            </br>
+            That's about it. Have fun!`
+        }); 
         localStorage.setItem('visited', true);
     }
     else{
