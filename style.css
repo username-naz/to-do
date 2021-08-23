@@ -105,7 +105,7 @@ img{
 }
 
 
-.edit-button, .remove-button{
+.edit-button, .remove-button, .done-button{
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -115,9 +115,14 @@ img{
     display: none;
 }
 
-.edit-button img, .remove-button img{
+.edit-button img, .remove-button img, .done-button img{
     width: 20px;
     height: 20px;
+}
+
+.list-item:hover .edit-button, .list-item:hover .remove-button, .list-item:hover .done-button{
+    display: inline-block;
+    transition: 0.2s;
 }
 
 @media (orientation:portrait){
@@ -130,23 +135,19 @@ img{
         width: 100%;
     }
 
-    .edit-button, .remove-button{
+    .edit-button, .remove-button, .done-button{
         display: inline-block;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 
-    .edit-button img, .remove-button img{
-        width: 20px;
-        height: 20px;
+    .edit-button img, .remove-button img, .done-button img{
+        width: 15px;
+        height: 15px;
     }
 
 }
 
-.list-item:hover .edit-button, .list-item:hover .remove-button{
-    display: inline-block;
-    transition: 0.2s;
-}
 
 
 .create-item{
@@ -204,7 +205,7 @@ img{
     left: 50%;
     background-color: white;
     box-shadow: 1px 1px 10px 1px #38383881;
-    height: 55%;
+    height: 60%;
     width: 50%;
     padding: 2%;
     border-radius: 2%;
@@ -213,11 +214,24 @@ img{
 .create-item-form form label{
     display: block;
     font-size: 1.5rem;
+    margin-bottom: 1%;
+}
+
+.create-item-form form label[for=is-done]{
+    display: block;
+    font-size: 1.2rem;
     margin-bottom: 2%;
 }
 
-.create-item-form form input, textarea{
-    display: block;
+.create-item-form form input[name=is-done]{
+    display: inline;
+    vertical-align: middle;
+    height: 25px;
+    width: 25px;
+}
+
+.create-item-form form input[name=subject], textarea{
+    display: inline-block;
     font-size: 1.2rem;
     padding: 2%;
     height: 10%;
@@ -284,6 +298,7 @@ img{
         width:30%;
         border-radius: 5%;
     }
+
 }
 
 

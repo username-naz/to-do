@@ -24,7 +24,6 @@ window.onload = ()=>{
         if(!items)
             items = [];
         loadItems({preventStorageUpdate : true});
-        console.log(typeof(items[0].id));
     }
 };
 
@@ -78,19 +77,36 @@ const updateStorage = ()=>{
 const createListItem = (item)=>{
     const listBox = document.getElementsByClassName('list-box')[0];
 
+    //the item
     const listItem = document.createElement('div');
     listItem.setAttribute('class', 'list-item');
     listItem.setAttribute('id', item.id);
+    //subject
     const subject = document.createElement('h4');
     subject.innerHTML = item.subject;
     subject.setAttribute('class', 'subject')
     listItem.appendChild(subject);
-
+    //description
     const description = document.createElement('p');
     description.innerHTML = item.description;
     description.setAttribute('class', 'description');
     listItem.appendChild(description);
 
+    //Remove button
+    const removeButton = document.createElement('button');
+    const removeImg = document.createElement('img');
+    removeButton.setAttribute('class', 'remove-button');
+    removeImg.setAttribute('src', 'res/images/x.png');
+    removeButton.appendChild(removeImg);
+    listItem.appendChild(removeButton);
+    //functionality
+    removeButton.addEventListener('click', (e)=>{
+        items = items.filter((i)=>i.id!=e.target.parentElement.getAttribute('id'));
+        loadItems();
+    });
+
+    
+    //edit Button
     const editButton = document.createElement('button');
     const editImg = document.createElement('img');
     editButton.setAttribute('class', 'edit-button');
@@ -103,23 +119,26 @@ const createListItem = (item)=>{
         editing.item = items.find((i)=> i.id == e.target.parentElement.getAttribute('id'));
         openForm();
     });
-
-    const removeButton = document.createElement('button');
-    const removeImg = document.createElement('img');
-    removeButton.setAttribute('class', 'remove-button');
-    removeImg.setAttribute('src', 'res/images/x.png');
-    removeButton.appendChild(removeImg);
-    listItem.appendChild(removeButton);
-    //functionality
-    removeButton.addEventListener('click', (e)=>{
-        items = items.filter((i)=>i.id!=e.target.parentElement.getAttribute('id'));
-        loadItems();
-    });
+    
+    //done Button
+    if(!item.isDone){
+        const doneButton = document.createElement('button');
+        const doneImg = document.createElement('img');
+        doneButton.setAttribute('class', 'done-button');
+        doneImg.setAttribute('src', 'res/images/tick.png');
+        doneButton.appendChild(doneImg);
+        listItem.appendChild(doneButton);
+        //functionality
+        doneButton.addEventListener('click', (e)=>{
+            items[parseInt(e.target.parentElement.getAttribute('id'))].isDone = true;
+            loadItems();
+        });
+    }
+    else{
+        listItem.style.opacity = 0.5;
+    }
     
     listBox.appendChild(listItem);
-
-
-
 };
 
 
@@ -133,16 +152,17 @@ const createListItem = (item)=>{
 
 const subjectField = document.querySelector('input[name=subject]');
 const descriptionField = document.querySelector('textarea[name=description]');
+const isDoneCheckBox = document.querySelector('input[name=is-done]');
 
 document.querySelector('.add-item')
     .addEventListener('click', (e)=>{
         e.preventDefault();
-        
         const subject = subjectField.value;
         const description = descriptionField.value;
+        const isDone = isDoneCheckBox.checked;
 
         if(subject && description){
-            items.push({id:getNewId(),subject:subject, description:description});
+            items.push({id:getNewId(),subject:subject, description:description, isDone:isDone});
             loadItems();
             closeForm();
         }
@@ -153,13 +173,14 @@ document.querySelector('.edit-item')
         e.preventDefault();
         const subject = subjectField.value;
         const description = descriptionField.value;
-
+        const isDone = isDoneCheckBox.checked;
         
     if(subject && description){
         items.forEach((i)=>{
             if(i.id == editing.item.id){
                 i.subject = subject;
                 i.description = description;
+                i.isDone = isDone;
             }
         });
         editing.status = false;
@@ -182,6 +203,7 @@ const openForm = ()=>{
     if(editing.status==true){
         subjectField.value = editing.item.subject;
         descriptionField.value = editing.item.description;
+        isDoneCheckBox.checked = editing.item.isDone;
         document.querySelector('.add-item').style.display = 'none';
         document.querySelector('.edit-item').style.display = 'inline-block';
     }
