@@ -3,7 +3,7 @@
     INITIALISATION
 ///////
 */
-const firstTime = false;
+const firstTime = true;
 window.onload = ()=>{
     if(firstTime===true)
         createListItem({
@@ -26,24 +26,24 @@ let editing = {status : false, item : null};
 ///////
 */
 let items = [
-    {
-        id:0,
-        subject:"hi",
-        description:"hi guys"
-    },
-    {   
-        id:1,
-        subject:"leto",
-        description:"leohjs guys"
-    },
-    {   id:2,
-        subject:"suii",
-        description:"seuihi guys"
-    },   
-    {   id:3,
-        subject:"heya",
-        description:"heya guys"
-    },
+    // {
+    //     id:0,
+    //     subject:"hi",
+    //     description:"hi guys"
+    // },
+    // {   
+    //     id:1,
+    //     subject:"leto",
+    //     description:"leohjs guys"
+    // },
+    // {   id:2,
+    //     subject:"suii",
+    //     description:"seuihi guys"
+    // },   
+    // {   id:3,
+    //     subject:"heya",
+    //     description:"heya guys"
+    // },
 
 ];
 
@@ -94,7 +94,6 @@ const createListItem = (item)=>{
     const description = document.createElement('p');
     description.innerHTML = item.description;
     description.setAttribute('class', 'description');
-    description.style.width = '70%';
     listItem.appendChild(description);
 
     const editButton = document.createElement('button');
