@@ -3,9 +3,12 @@
     INITIALISATION
 ///////
 */
-const firstTime = true;
+
+let items = [];
+
 window.onload = ()=>{
-    if(firstTime===true)
+    const visited = localStorage.getItem('visited');
+    if(!visited){
         createListItem({
             subject: 'Welcome new user!',
             description: `This is your to-do list handler.</br>
@@ -14,8 +17,15 @@ window.onload = ()=>{
             2. To edit or remove an list, move over it with your mouse or click on it if you are on your phone.</br>
             That's about it! Have fun!`
         });
-    else
-        loadItems();
+        localStorage.setItem('visited', true);
+    }
+    else{
+        items = JSON.parse(localStorage.getItem('items'));
+        if(!items)
+            items = [];
+        loadItems({preventStorageUpdate : true});
+        console.log(typeof(items[0].id));
+    }
 };
 
 let editing = {status : false, item : null};
@@ -25,27 +35,7 @@ let editing = {status : false, item : null};
     TEMP STORAGE
 ///////
 */
-let items = [
-    // {
-    //     id:0,
-    //     subject:"hi",
-    //     description:"hi guys"
-    // },
-    // {   
-    //     id:1,
-    //     subject:"leto",
-    //     description:"leohjs guys"
-    // },
-    // {   id:2,
-    //     subject:"suii",
-    //     description:"seuihi guys"
-    // },   
-    // {   id:3,
-    //     subject:"heya",
-    //     description:"heya guys"
-    // },
 
-];
 
 const getNewId = ()=>{
     let newId = 0;
@@ -54,8 +44,6 @@ const getNewId = ()=>{
     })
     return newId;
 };
-
-
 
 
 /* ///////
@@ -68,16 +56,23 @@ document.querySelector('.create-item')
         openForm();
     });
 
-const loadItems = () =>{
+const loadItems = ({preventStorageUpdate = true} = {}) =>{
+    if(preventStorageUpdate)
+        updateStorage();
+
     const listBox = document.getElementsByClassName('list-box')[0];
     listBox.innerHTML = "";
-    items.slice().reverse().forEach((item)=>{
+    items.forEach((item)=>{
         createListItem(item);
     });
 
     document.querySelector('.empty-list-message')
         .style.display = items.length===0?'block':'none';
         
+}
+
+const updateStorage = ()=>{
+    localStorage.setItem('items', JSON.stringify(items));
 }
 
 const createListItem = (item)=>{
@@ -136,11 +131,13 @@ const createListItem = (item)=>{
 ///////
 */
 
+const subjectField = document.querySelector('input[name=subject]');
+const descriptionField = document.querySelector('textarea[name=description]');
+
 document.querySelector('.add-item')
     .addEventListener('click', (e)=>{
         e.preventDefault();
-        const subjectField = document.querySelector('input[name=subject]');
-        const descriptionField = document.querySelector('textarea[name=description]');
+        
         const subject = subjectField.value;
         const description = descriptionField.value;
 
@@ -154,8 +151,6 @@ document.querySelector('.add-item')
 document.querySelector('.edit-item')
     .addEventListener('click', (e) =>{
         e.preventDefault();
-        const subjectField = document.querySelector('input[name=subject]');
-        const descriptionField = document.querySelector('textarea[name=description]');
         const subject = subjectField.value;
         const description = descriptionField.value;
 
@@ -185,8 +180,8 @@ document.querySelector('.cancel')
 const openForm = ()=>{
     document.querySelector('.create-item-form').style.display = 'block';
     if(editing.status==true){
-        document.querySelector('input[name=subject]').value = editing.item.subject;
-        document.querySelector('textarea[name=description]').value = editing.item.description;
+        subjectField.value = editing.item.subject;
+        descriptionField.value = editing.item.description;
         document.querySelector('.add-item').style.display = 'none';
         document.querySelector('.edit-item').style.display = 'inline-block';
     }
