@@ -1,11 +1,12 @@
 # to-do
 to-do list handler with basic html css and js  
 </br>
-Hosted on: https://username-naz.github.io/to-do/ for now  
-will switch to netlify soon  
-</br>
-You will be able to:
-* add things
-* edit things
-* remove things  
-
+https://naz-to-do.netlify.app/
+<hr>
+you can:
+<ul>
+<li>Add Things</li>
+<li>Set things as done</li>
+ <li>Edit things</li>
+<li>Remove things</li>
+</ul>
