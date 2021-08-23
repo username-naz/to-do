@@ -15,8 +15,7 @@ window.onload = ()=>{
             Here's how to use it: </br>
             1. To add a new to-do, click on the circular button on your screen.</br>
             2. To edit or remove a to-do, move over it with your mouse and click on the required button.</br>
-            3. You can mark a to-do as done with the check-marked button. You can edit it to be active again.
-            </br>
+            3. You can mark a to-do as done with the check-marked button. You can edit it to be active again.</br></br>
             That's about it. Have fun!`
         }); 
         localStorage.setItem('visited', true);
