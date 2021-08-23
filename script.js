@@ -1,5 +1,5 @@
 //initialisation
-const firstTime = true;
+const firstTime = false;
 window.onload = ()=>{
     if(firstTime===true)
         createListItem({
@@ -17,24 +17,24 @@ window.onload = ()=>{
 
 //tempStorage
 let items = [
-    // {
-    //     id:0,
-    //     subject:"hi",
-    //     description:"hi guys"
-    // },
-    // {   
-    //     id:1,
-    //     subject:"leto",
-    //     description:"leohjs guys"
-    // },
-    // {   id:2,
-    //     subject:"suii",
-    //     description:"seuihi guys"
-    // },   
-    // {   id:3,
-    //     subject:"heya",
-    //     description:"heya guys"
-    // },
+    {
+        id:0,
+        subject:"hi",
+        description:"hi guys"
+    },
+    {   
+        id:1,
+        subject:"leto",
+        description:"leohjs guys"
+    },
+    {   id:2,
+        subject:"suii",
+        description:"seuihi guys"
+    },   
+    {   id:3,
+        subject:"heya",
+        description:"heya guys"
+    },
 
 ];
 
