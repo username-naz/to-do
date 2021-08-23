@@ -14,6 +14,7 @@ window.onload = ()=>{
         loadItems();
 };
 
+let editing = {status : false, item : null};
 
 //tempStorage
 let items = [
@@ -50,7 +51,7 @@ const getNewId = ()=>{
 document.querySelector('.create-item')
     .addEventListener('click', (e)=>{
         e.preventDefault();
-        document.querySelector('.create-item-form').style.display = 'block';
+        openForm();
     });
 
 const loadItems = () =>{
@@ -70,7 +71,7 @@ const createListItem = (item)=>{
 
     const listItem = document.createElement('div');
     listItem.setAttribute('class', 'list-item');
-
+    listItem.setAttribute('id', item.id);
     const subject = document.createElement('h4');
     subject.innerHTML = item.subject;
     subject.setAttribute('class', 'subject')
@@ -88,6 +89,12 @@ const createListItem = (item)=>{
     editImg.setAttribute('src', 'res/images/pen.png');
     editButton.appendChild(editImg);
     listItem.appendChild(editButton);
+    //functionality
+    editButton.addEventListener('click', (e)=>{
+        editing.status = true;
+        editing.item = items.find((i)=> i.id == e.target.parentElement.getAttribute('id'));
+        openForm();
+    });
 
     const removeButton = document.createElement('button');
     const removeImg = document.createElement('img');
@@ -97,7 +104,7 @@ const createListItem = (item)=>{
     listItem.appendChild(removeButton);
     //functionality
     removeButton.addEventListener('click', (e)=>{
-        items = items.filter((i)=>i.id!==item.id);
+        items = items.filter((i)=>i.id!=e.target.parentElement.getAttribute('id'));
         loadItems();
     });
     
@@ -121,18 +128,59 @@ document.querySelector('.add-item')
         const description = descriptionField.value;
 
         if(subject && description){
-            e.target.parentElement.reset();
             items.push({id:getNewId(),subject:subject, description:description});
             loadItems();
-            document.querySelector('.create-item-form').style.display = 'none';
+            closeForm();
         }
     });
+
+document.querySelector('.edit-item')
+    .addEventListener('click', (e) =>{
+        e.preventDefault();
+        const subjectField = document.querySelector('input[name=subject]');
+        const descriptionField = document.querySelector('textarea[name=description]');
+        const subject = subjectField.value;
+        const description = descriptionField.value;
+
+        
+    if(subject && description){
+        items.forEach((i)=>{
+            if(i.id == editing.item.id){
+                i.subject = subject;
+                i.description = description;
+            }
+        });
+        editing.status = false;
+        editing.item = null;
+        loadItems();
+        closeForm();
+    }
+});
 
 document.querySelector('.cancel')
 .addEventListener('click', (e)=>{
     e.preventDefault();
-    e.target.parentElement.reset();
-    document.querySelector('.create-item-form').style.display = 'none';
+    editing.status = false;
+    editing.item = null;
+    closeForm();
 });
 
+const openForm = ()=>{
+    document.querySelector('.create-item-form').style.display = 'block';
+    if(editing.status==true){
+        document.querySelector('input[name=subject]').value = editing.item.subject;
+        document.querySelector('textarea[name=description]').value = editing.item.description;
+        document.querySelector('.add-item').style.display = 'none';
+        document.querySelector('.edit-item').style.display = 'inline-block';
+    }
+    else{
+        document.querySelector('.add-item').style.display = 'inline-block';
+        document.querySelector('.edit-item').style.display = 'none';
+    }
+}
+
+const closeForm = ()=>{
+    document.querySelector('.create-item-form form').reset();
+    document.querySelector('.create-item-form').style.display = 'none';
+}
 
