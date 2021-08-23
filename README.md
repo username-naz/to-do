@@ -4,7 +4,7 @@ to-do list handler with basic html css and js
 https://naz-to-do.netlify.app/
 
 </br>
-You can:
+You can:  
 * add things
 * set things as done
 * edit things
