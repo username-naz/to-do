@@ -1,4 +1,8 @@
-//initialisation
+
+/* ///////
+    INITIALISATION
+///////
+*/
 const firstTime = false;
 window.onload = ()=>{
     if(firstTime===true)
@@ -16,7 +20,11 @@ window.onload = ()=>{
 
 let editing = {status : false, item : null};
 
-//tempStorage
+
+/* ///////
+    TEMP STORAGE
+///////
+*/
 let items = [
     {
         id:0,
@@ -47,7 +55,13 @@ const getNewId = ()=>{
     return newId;
 };
 
-//List Items
+
+
+
+/* ///////
+    LIST ITEMS
+///////
+*/
 document.querySelector('.create-item')
     .addEventListener('click', (e)=>{
         e.preventDefault();
@@ -57,7 +71,7 @@ document.querySelector('.create-item')
 const loadItems = () =>{
     const listBox = document.getElementsByClassName('list-box')[0];
     listBox.innerHTML = "";
-    items.forEach((item)=>{
+    items.slice().reverse().forEach((item)=>{
         createListItem(item);
     });
 
@@ -117,7 +131,11 @@ const createListItem = (item)=>{
 
 
 
-//form
+
+/* ///////
+    FORM
+///////
+*/
 
 document.querySelector('.add-item')
     .addEventListener('click', (e)=>{
