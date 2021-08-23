@@ -135,7 +135,8 @@ const createListItem = (item)=>{
         });
     }
     else{
-        listItem.style.opacity = 0.5;
+        subject.style.opacity = 0.5;
+        description.style.opacity = 0.5;
     }
     
     listBox.appendChild(listItem);
