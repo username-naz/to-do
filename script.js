@@ -12,6 +12,12 @@ const filters = Object.freeze({
 });
 let filter = filters.VIEW_ALL;
 
+const orders = Object.freeze({
+    OLDEST_FIRST:'OLDEST_FIRST',
+    LATEST_FIRST:'LATEST_FIRST',
+});
+let order = localStorage.getItem('order') || orders.OLDEST_FIRST;
+
 window.onload = ()=>{
     const visited = localStorage.getItem('visited');
     if(!visited){
@@ -25,6 +31,7 @@ window.onload = ()=>{
             That's about it. Have fun!`
         }); 
         localStorage.setItem('visited', true);
+        localStorage.setItem('order', orders.OLDEST_FIRST);
     }
     else{
         items = JSON.parse(localStorage.getItem('items'));
@@ -69,6 +76,9 @@ const loadItems = ({preventStorageUpdate = false} = {}) =>{
         else if((filter===filters.UNDONE_ONLY) && !item.isDone) displayableItems.push(item);
         else if((filter===filters.DONE_ONLY) && item.isDone) displayableItems.push(item);
     }));
+
+    if(order===orders.LATEST_FIRST)
+        displayableItems = displayableItems.reverse();
 
     if(!preventStorageUpdate)
         updateStorage();
@@ -249,32 +259,64 @@ const viewAll = document.getElementsByClassName('filter-button')[0];
 const UndoneOnly = document.getElementsByClassName('filter-button')[1];
 const DoneOnly = document.getElementsByClassName('filter-button')[2];
 
-viewAll.style.background = "#cccccc";
-
-
 viewAll.addEventListener('click', ()=>{
-    viewAll.style.background = "#cccccc";
-    UndoneOnly.style.background = "#e6e6e6";
-    DoneOnly.style.background = "#e6e6e6";
+    viewAll.style.background = '#cccccc';
+    UndoneOnly.style.background = '#e6e6e6';
+    DoneOnly.style.background = '#e6e6e6';
 
     filter = filters.VIEW_ALL;
     loadItems();
 });
 
 UndoneOnly.addEventListener('click', ()=>{
-    viewAll.style.background = "#e6e6e6";
-    UndoneOnly.style.background = "#cccccc";
-    DoneOnly.style.background = "#e6e6e6";
+    viewAll.style.background = '#e6e6e6';
+    UndoneOnly.style.background = '#cccccc';
+    DoneOnly.style.background = '#e6e6e6';
 
     filter = filters.UNDONE_ONLY;
     loadItems();
 });
 
 DoneOnly.addEventListener('click', ()=>{
-    viewAll.style.background = "#e6e6e6";
-    UndoneOnly.style.background = "#e6e6e6";
-    DoneOnly.style.background = "#cccccc";
+    viewAll.style.background = '#e6e6e6';
+    UndoneOnly.style.background = '#e6e6e6';
+    DoneOnly.style.background = '#cccccc';
 
     filter = filters.DONE_ONLY;
     loadItems();
 });
+
+
+
+//ordering
+const oldestFirst = document.getElementsByClassName('order-button')[0];
+const latestFirst = document.getElementsByClassName('order-button')[1];
+
+
+
+oldestFirst.addEventListener('click', ()=>{
+    oldestFirst.style.background = "#cccccc";
+    latestFirst.style.background = '#e6e6e6'
+    order = orders.OLDEST_FIRST;
+    localStorage.setItem('order', order);
+    loadItems();
+});
+
+latestFirst.addEventListener('click', ()=>{
+    oldestFirst.style.background = '#e6e6e6';
+    latestFirst.style.background = '#cccccc';
+    order = orders.LATEST_FIRST;
+    localStorage.setItem('order', order);
+    loadItems();
+});
+
+
+(()=>{
+    viewAll.style.background = '#cccccc';
+    if(order === orders.OLDEST_FIRST)
+        oldestFirst.style.background = "#cccccc";
+    else
+        latestFirst.style.background = '#cccccc';
+})();
+
+//remove all
