@@ -11,11 +11,11 @@ window.onload = ()=>{
     if(!visited){
         createListItem({
             subject: 'Welcome new user!',
-            description: `This is your to-do list handler.</br></br>
-            Here's how to use it: </br>
-            1. To add a new to-do, click on the circular button on your screen.</br>
-            2. To edit or remove a to-do, move over it with your mouse and click on the required button.</br>
-            3. You can mark a to-do as done with the check-marked button. You can edit it to be active again.</br></br>
+            description: `This is your to-do list handler.
+            Here's how to use it:   
+            1. To add a new to-do, click on the circular button on your screen.
+            2. To edit or remove a to-do, move over it with your mouse and click on the required button.
+            3. You can mark a to-do as done with the check-marked button. You can edit it to be active again.
             That's about it. Have fun!`
         }); 
         localStorage.setItem('visited', true);
@@ -56,8 +56,8 @@ document.querySelector('.create-item')
         openForm();
     });
 
-const loadItems = ({preventStorageUpdate = true} = {}) =>{
-    if(preventStorageUpdate)
+const loadItems = ({preventStorageUpdate = false} = {}) =>{
+    if(!preventStorageUpdate)
         updateStorage();
 
     const listBox = document.getElementsByClassName('list-box')[0];
@@ -84,12 +84,12 @@ const createListItem = (item)=>{
     listItem.setAttribute('id', item.id);
     //subject
     const subject = document.createElement('h4');
-    subject.innerHTML = item.subject;
+    subject.innerText = item.subject;
     subject.setAttribute('class', 'subject')
     listItem.appendChild(subject);
     //description
     const description = document.createElement('p');
-    description.innerHTML = item.description;
+    description.innerText = item.description;
     description.setAttribute('class', 'description');
     listItem.appendChild(description);
 
