@@ -5,6 +5,12 @@
 */
 
 let items = [];
+const filters = Object.freeze({
+    VIEW_ALL:'VIEW_ALL', 
+    UNDONE_ONLY:'UNDONE_ONLY',
+    DONE_ONLY:'DONE_ONLY'
+});
+let filter = filters.VIEW_ALL;
 
 window.onload = ()=>{
     const visited = localStorage.getItem('visited');
@@ -57,12 +63,19 @@ document.querySelector('.create-item')
     });
 
 const loadItems = ({preventStorageUpdate = false} = {}) =>{
+    let displayableItems = [];
+    items.forEach((item=>{
+        if(filter===filters.VIEW_ALL) displayableItems.push(item);
+        else if((filter===filters.UNDONE_ONLY) && !item.isDone) displayableItems.push(item);
+        else if((filter===filters.DONE_ONLY) && item.isDone) displayableItems.push(item);
+    }));
+
     if(!preventStorageUpdate)
         updateStorage();
 
     const listBox = document.getElementsByClassName('list-box')[0];
     listBox.innerHTML = "";
-    items.forEach((item)=>{
+    displayableItems.forEach((item)=>{
         createListItem(item);
     });
 
@@ -220,3 +233,48 @@ const closeForm = ()=>{
     document.querySelector('.create-item-form').style.display = 'none';
 }
 
+
+
+//settings
+let settingsOpen = false;
+const settings = document.querySelector('.settings');
+
+document.querySelector('.settings-button').addEventListener('click', ()=>{ 
+    settings.style.display = settingsOpen?'none':'block';
+    settingsOpen = !settingsOpen;
+});
+
+//filtering
+const viewAll = document.getElementsByClassName('filter-button')[0];
+const UndoneOnly = document.getElementsByClassName('filter-button')[1];
+const DoneOnly = document.getElementsByClassName('filter-button')[2];
+
+viewAll.style.background = "#cccccc";
+
+
+viewAll.addEventListener('click', ()=>{
+    viewAll.style.background = "#cccccc";
+    UndoneOnly.style.background = "#e6e6e6";
+    DoneOnly.style.background = "#e6e6e6";
+
+    filter = filters.VIEW_ALL;
+    loadItems();
+});
+
+UndoneOnly.addEventListener('click', ()=>{
+    viewAll.style.background = "#e6e6e6";
+    UndoneOnly.style.background = "#cccccc";
+    DoneOnly.style.background = "#e6e6e6";
+
+    filter = filters.UNDONE_ONLY;
+    loadItems();
+});
+
+DoneOnly.addEventListener('click', ()=>{
+    viewAll.style.background = "#e6e6e6";
+    UndoneOnly.style.background = "#e6e6e6";
+    DoneOnly.style.background = "#cccccc";
+
+    filter = filters.DONE_ONLY;
+    loadItems();
+});
