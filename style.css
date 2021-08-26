@@ -377,7 +377,7 @@ img{
     box-shadow: 1px 1px 10px 1px #38383881;
     padding: 2% black;
     border-radius: 2%;
-    /* display: none; */
+    display: none;
 }
 
 .settings:after{
