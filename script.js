@@ -320,3 +320,8 @@ latestFirst.addEventListener('click', ()=>{
 })();
 
 //remove all
+document.querySelector('.remove-all-button').addEventListener('click', ()=>{
+    items = [];
+    loadItems();
+});
+
